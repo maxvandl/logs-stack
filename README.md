@@ -5,7 +5,7 @@
 ```bash
 cd compose && docker-compose up -d
 ```
-##  Rsyslog “remote” ruleset
+## Setup Rsyslog “remote” ruleset on the same VM with Loki and Grafana
 On Ubuntu, Rsyslog is installed by default. Any .conf file added in /etc/rsyslog.d will be read and included in the configuration.
 
 The config file below creates a “remote” ruleset which does not interfere with the default local logging. It relays whatever comes in via TCP and UDP on port 514 to Promtail listening on TCP port 1514.
