@@ -16,9 +16,7 @@
     {
       fileMatch: ['^compose.+\\.ya?ml$'],
       "matchStrings": ["image: (?<depName>.*?):\\${(?:.*):?-(?<currentValue>.*?)}"],
-      "datasourceTemplate": "docker",
-      "schedule": ["on monday"],
-      "automerge": false
+      "datasourceTemplate": "docker"
     }
   ],
   "depTypes": ["*"],
