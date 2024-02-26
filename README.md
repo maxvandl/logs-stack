@@ -5,8 +5,31 @@
 ```bash
 cd compose && docker-compose up -d
 ```
+##  Rsyslog “remote” ruleset
+On Ubuntu, Rsyslog is installed by default. Any .conf file added in /etc/rsyslog.d will be read and included in the configuration.
 
-## Install Grafana Agent in static mode on Linux
+The config file below creates a “remote” ruleset which does not interfere with the default local logging. It relays whatever comes in via TCP and UDP on port 514 to Promtail listening on TCP port 1514.
+
+/etc/rsyslog.d/00-promtail-relay.conf
+```bash
+# https://www.rsyslog.com/doc/v8-stable/concepts/multi_ruleset.html#split-local-and-remote-logging
+ruleset(name="remote"){
+  # https://www.rsyslog.com/doc/v8-stable/configuration/modules/omfwd.html
+  # https://grafana.com/docs/loki/latest/clients/promtail/scraping/#rsyslog-output-configuration
+  action(type="omfwd" Target="localhost" Port="1514" Protocol="tcp" Template="RSYSLOG_SyslogProtocol23Format" TCP_Framing="octet-counted")
+}
+
+
+# https://www.rsyslog.com/doc/v8-stable/configuration/modules/imudp.html
+module(load="imudp")
+input(type="imudp" port="514" ruleset="remote")
+
+# https://www.rsyslog.com/doc/v8-stable/configuration/modules/imtcp.html
+module(load="imtcp")
+input(type="imtcp" port="514" ruleset="remote")
+```
+
+# Install Grafana Agent in static mode on Linux VM
 
 You can install Grafana Agent in static mode on Linux.
 
@@ -87,7 +110,7 @@ sudo rm -i /etc/apt/sources.list.d/grafana.list
 sudo rm -i /etc/apt/keyrings/grafana.gpg
 ```
 
-## Install Grafana Agent in static mode on Windows
+# Install Grafana Agent in static mode on Windows VM
 
 FOLLOW url
 https://grafana.com/docs/agent/latest/static/set-up/install/install-agent-on-windows/#standard-install
