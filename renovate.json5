@@ -5,18 +5,14 @@
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "baseBranch": "main",
-  "packageRules": [
-    {
-      "packageNames": ["*"],
-      "automerge": false,
-      "schedule": ["on monday"]
-    }
-  ],
+
   regexManagers: [
     {
       fileMatch: ['^compose.+\\.ya?ml$'],
-            "matchStrings": ["image: (?<depName>.*?):\\${(?:.*):?-(?<currentValue>.*?)}"],
-            "datasourceTemplate": "docker"
+      "matchStrings": ["image: (?<depName>.*?):\\${(?:.*):?-(?<currentValue>.*?)}"],
+      "datasourceTemplate": "docker",
+      "schedule": ["on monday"],
+      "automerge": false
     }
   ],
   "depTypes": ["*"],
