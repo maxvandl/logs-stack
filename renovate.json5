@@ -5,7 +5,13 @@
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "baseBranch": "main",
-
+  "packageRules": [
+    {
+      "packageNames": ["*"],
+      "automerge": false,
+      "schedule": ["on monday"]
+    }
+  ],
   regexManagers: [
     {
       fileMatch: ['^compose.+\\.ya?ml$'],
