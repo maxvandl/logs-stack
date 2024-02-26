@@ -1,27 +1,23 @@
 ---
 version: "3.9"
 
-
 services:
   loki:
     container_name: loki
     image: grafana/loki:${LOKI_TAG:-2.9.4}
     ports:
-      - "3100:3100"
+      - 3100:3100
     command: -config.file=/etc/loki/local-config.yaml
-
 
   grafana-agent:
     container_name: grafana-agent
     image: grafana/agent:${GRAFANA_AGENT_TAG:-v0.39.2}
-    
     environment:
       WAL_DATA_DIRECTORY: "/etc/agent/data"
       CONFIG_FILE_PATH:  "/etc/agent/agent.yaml"
     volumes:
       - ./data/:/etc/agent/data
       - ./config/agent.yaml/:/etc/agent/agent.yaml
-
 
   grafana:
     container_name: grafana
@@ -51,4 +47,4 @@ services:
         EOF
         /run.sh
     ports:
-      - "3000:3000"
+      - 3000:3000
