@@ -49,6 +49,7 @@ Update the repositories:
 
 ```bash
 sudo apt-get update
+sudo usermod -a -G adm grafana-agent
 ```
 
 ## Install Grafana Agent:
