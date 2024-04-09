@@ -29,13 +29,14 @@ module(load="imtcp")
 input(type="imtcp" port="514" ruleset="remote")
 ```
 
-onfigure Remote Syslog Server: Ensure that your remote syslog server is properly configured to receive logs from Docker containers. Depending on the syslog server you're using (e.g., rsyslog, syslog-ng), you may need to adjust its configuration to accept logs from remote hosts.
+Configure Remote Syslog Server: Ensure that your remote syslog server is properly configured to receive logs from Docker containers. Depending on the syslog server you're using (e.g., rsyslog, syslog-ng), you may need to adjust its configuration to accept logs from remote hosts.
 For example, in rsyslog, you might need to modify the configuration file (/etc/rsyslog.conf) to listen for incoming syslog messages on the specified port:
-bash
-Copy code
+
+```bash
 # Provides UDP syslog reception
 $ModLoad imudp
 $UDPServerRun <port>
+```
 Restart Syslog Service: After making changes to the syslog server configuration, restart the syslog service to apply the changes.
 Verify: Start your Docker containers and verify that logs are being sent to the remote syslog server. You can check the syslog server logs or use tools like tcpdump to inspect incoming syslog messages.
 By following these steps, you should be able to push logs from your Docker containers to a remote syslog server. Make sure to adjust the configurations according to your specific environment and requirements.
