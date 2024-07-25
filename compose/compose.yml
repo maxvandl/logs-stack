@@ -11,7 +11,7 @@ services:
 
   grafana-agent:
     container_name: grafana-agent
-    image: grafana/agent:${GRAFANA_AGENT_TAG:-v0.39.2}
+    image: grafana/agent:${GRAFANA_AGENT_TAG:-v0.42.0}
     environment:
       WAL_DATA_DIRECTORY: "/etc/agent/data"
       CONFIG_FILE_PATH:  "/etc/agent/agent.yaml"
