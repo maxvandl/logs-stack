@@ -1,18 +1,25 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base"],
-  "enabled": true,
-  "dependencyDashboard": true,
-  "dependencyDashboardTitle": "Renovate Dashboard 🤖",
-  "baseBranch": "main",
-
-  regexManagers: [
-    {
-      fileMatch: ['^compose.+\\.ya?ml$'],
-      "matchStrings": ["image: (?<depName>.*?):\\${(?:.*):?-(?<currentValue>.*?)}"],
-      "datasourceTemplate": "docker"
-    }
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'config:recommended',
   ],
-  "depTypes": ["*"],
-  "separateMajorMinor": true
+  enabled: true,
+  dependencyDashboard: true,
+  dependencyDashboardTitle: 'Renovate Dashboard 🤖',
+  baseBranches: [
+    'main',
+  ],
+  customManagers: [
+    {
+      customType: 'regex',
+      fileMatch: [
+        '^compose.+\\.ya?ml$',
+      ],
+      matchStrings: [
+        'image: (?<depName>.*?):\\${(?:.*):?-(?<currentValue>.*?)}',
+      ],
+      datasourceTemplate: 'docker',
+    },
+  ],
+  separateMajorMinor: true,
 }
